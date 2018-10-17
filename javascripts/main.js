@@ -47,6 +47,13 @@ const writeFishes = (arrayofFishes) => {
         $(e.target).text('Add To Basket').addClass('add').removeClass('remove');
         });
 
+        $('#show-sale').click(() => {
+            $('.fish').not('.on-sale').toggle();
+            $('#show-sale').text((i, text) => {
+                return (text === 'Show Sale Fish') ? 'Show All' : 'Show Sale Fish'
+            });
+        });
+
 // Load Fish
 $.get('../db/fishes.json')
     .done((data) => {
