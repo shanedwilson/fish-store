@@ -29,13 +29,32 @@ const writeFishes = (arrayofFishes) => {
 }
 
 const bindEvents = () => {
+    addToBasket();
+}
+
+const addToBasket = () => {
     $(".add").on('click', (e) => {
         //What is the div that has the fish
         const fishToMove = $(e.target).closest('.fish');
         //Move that fish to the 'snagged' div
         $('#snagged').append(fishToMove);
         // button text => Remove from Baseket | change class -'add' + 'remove'
-        $(e.target).text('Remove from Basket').addClass('remove').removeClass('add');
+        $(e.target).text('Remove From Basket').addClass('remove').removeClass('add');
+        removeFromBasket();
+        });
+}
+
+// Remove Fish
+const removeFromBasket = () => {
+    $(".remove").on('click', (e) => {
+        //What is the div that has the fish
+        const fishToMove = $(e.target).closest('.fish');
+        console.log("CLICKED!!!")
+        //Move that fish to the 'available' div
+        $('#available').append(fishToMove);
+        // button text => Remove from Baseket | change class -'remove' + 'add'
+        $(e.target).text('Add To Basket').addClass('add').removeClass('remove');
+        bindEvents();
         });
 }
 
@@ -48,7 +67,3 @@ $.get('../db/fishes.json')
 .fail((error) => {
     console.log(error);
 }) 
-
-$(".add").on('click', (e) => {
-    alert('fish!!!');
-});
