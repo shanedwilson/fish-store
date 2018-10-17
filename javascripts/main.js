@@ -25,44 +25,32 @@ const writeFishes = (arrayofFishes) => {
     })
     //write to dom
     $("#available").append(domString);
-    bindEvents();
 }
 
-const bindEvents = () => {
-    addToBasket();
-}
-
-const addToBasket = () => {
-    $(".add").on('click', (e) => {
+    $("body").on('click', 'button.add', (e) => {
         //What is the div that has the fish
         const fishToMove = $(e.target).closest('.fish');
         //Move that fish to the 'snagged' div
         $('#snagged').append(fishToMove);
         // button text => Remove from Baseket | change class -'add' + 'remove'
         $(e.target).text('Remove From Basket').addClass('remove').removeClass('add');
-        removeFromBasket();
         });
-}
+
 
 // Remove Fish
-const removeFromBasket = () => {
-    $(".remove").on('click', (e) => {
+    $("body").on('click', 'button.remove', (e) => {
         //What is the div that has the fish
         const fishToMove = $(e.target).closest('.fish');
-        console.log("CLICKED!!!")
         //Move that fish to the 'available' div
         $('#available').append(fishToMove);
         // button text => Remove from Baseket | change class -'remove' + 'add'
         $(e.target).text('Add To Basket').addClass('add').removeClass('remove');
-        bindEvents();
         });
-}
 
 // Load Fish
 $.get('../db/fishes.json')
     .done((data) => {
-        console.log(data);
-        writeFishes(data.fishes);
+    writeFishes(data.fishes);
 })
 .fail((error) => {
     console.log(error);
